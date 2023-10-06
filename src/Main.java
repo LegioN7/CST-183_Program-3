@@ -49,12 +49,10 @@ TOTALS $xxxxx.xx $xxxx.xx $xxxxx.xx $xxx.xx
 
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.io.FileWriter;
-import java.io.IOException;
 import java.util.Scanner;
 
 public class Main {
-   static final public String headerNumber = "#";
+    static final public String headerNumber = "#";
     static final public String headerCustomer = "Customer";
     static final public String headerPrincipal = "Principal";
     static final public String headerRate = "Rate";
@@ -66,6 +64,9 @@ public class Main {
 
     // Header for the Total Row
     static final public String headerTotal = "Total";
+
+    // Variable for Months in Year
+    static final public int MONTHS_IN_YEAR = 12;
 
     public static void main(String[] args) {
 
@@ -129,9 +130,9 @@ public class Main {
                 // These are the variables required to calculate the Payments
                 feeAmount = loanPrincipal * loanFeePercentage;
                 double presentValue = loanPrincipal - feeAmount;
-                double ratePerPeriod = annualRate / 12.0 / 100.0;
-                double annualRatePeriod = annualRate / 12.0;
-                int loanPayments = loanTerm * 12;
+                double ratePerPeriod = annualRate / MONTHS_IN_YEAR / 100.0;
+                double annualRatePeriod = annualRate / MONTHS_IN_YEAR;
+                int loanPayments = loanTerm * MONTHS_IN_YEAR;
 
                 // Monthly payment is provided by the homework .pdf
                 monthlyPayment = (ratePerPeriod * presentValue) / (1 - Math.pow(1 + ratePerPeriod, -loanPayments));
@@ -170,13 +171,13 @@ public class Main {
             dataReader.close();
         } catch (FileNotFoundException e) {
             System.out.println("An error occurred.");
-            e.printStackTrace();
         }
 
         // Using blanks as a spacer because I didn't want to use a string format
         String blank = "";
         // Print Totals Row
-        System.out.printf("%-15s %15s  %15s %15s %15s %15s %15s %15s %15s %n",headerTotal,blank, "$" + String.format("%.2f", totalPrincipal), blank, blank, "$" + String.format("%.2f", totalPayments), "$" + String.format("%.2f", totalPayOff), "$" + totalFee, blank);
+        // Put 14 for payoff because it was off center
+        System.out.printf("%-15s %15s  %15s %15s %15s %15s %14s %15s %15s %n", headerTotal, blank, "$" + String.format("%.2f", totalPrincipal), blank, blank, "$" + String.format("%.2f", totalPayments), "$" + String.format("%.2f", totalPayOff), "$" + totalFee, blank);
 
     }
 }
