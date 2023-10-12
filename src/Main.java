@@ -129,7 +129,7 @@ public class Main {
 
                 // These are the variables required to calculate the Payments
                 feeAmount = loanPrincipal * loanFeePercentage;
-                double presentValue = loanPrincipal - feeAmount;
+                double presentValue = loanPrincipal;
                 double ratePerPeriod = annualRate / MONTHS_IN_YEAR / 100.0;
                 double annualRatePeriod = annualRate / MONTHS_IN_YEAR;
                 int loanPayments = loanTerm * MONTHS_IN_YEAR;
